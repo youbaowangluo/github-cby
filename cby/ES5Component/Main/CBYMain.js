@@ -25,19 +25,29 @@ var Main = React.createClass({
     // 初始化变量、状态机
     getInitialState(){
         return{
-            selectedTab:'home' //默认第一个
+            selectedTab:'baojia', //默认第一个
+            tabBarHeight: 52
         }
+    },
+
+    handleTabBar(state){
+        this.setState({
+            tabBarHeight: state ? 52 : 0
+        });
     },
 
     render() {
         return (
-            <TabNavigator>
+            <TabNavigator
+                tabBarStyle={{height: this.state.tabBarHeight, overflow: 'hidden'}}
+                sceneStyle={{paddingBottom: this.state.tabBarHeight}}
+            >
                 {/*报价*/}
                 {this.renderTabNavigatorItem('报价','tab1',
                     'tab1_selected','baojia','报价',Baojia)}
                 {/*消息*/}
                 {this.renderTabNavigatorItem('消息','tab2',
-                    'tab2_selected','message','消息',Message,'2')}
+                    'tab2_selected','message','消息',Message,'1')}
                 {/*我的*/}
                 {this.renderTabNavigatorItem('我的','tab3',
                     'tab3_selected','mine','我的',Mine)}
@@ -62,7 +72,16 @@ var Main = React.createClass({
                 badgeText={badgeText}
             >
                 <Navigator.Navigator
-                    initialRoute={{name:routeName,component:component}}
+                    initialRoute={{
+                        name:routeName,
+                        component:component,
+                        passProps: {
+                            tabBar: {
+                                hide: () => this.handleTabBar(false),
+                                show: () => this.handleTabBar(true)
+                            }
+                        }
+                    }}
                     configureScene={()=>{
                         return Navigator.Navigator.SceneConfigs.PushFromRight;
                     }}
