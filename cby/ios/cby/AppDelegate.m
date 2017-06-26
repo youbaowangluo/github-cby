@@ -21,7 +21,11 @@
   // 设置状态栏颜色为白色
 //  [[UIApplication sharedApplication] setStatusBarStyle: UIStatusBarStyleLightContent];
 
+  //访问 node.js
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index.ios" fallbackResource:nil];
+  //访问 离线包
+//  jsCodeLocation = [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
+
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
                                                       moduleName:@"cby"

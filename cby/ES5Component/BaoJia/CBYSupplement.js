@@ -146,8 +146,8 @@ const styles = StyleSheet.create({
     },
     shadowStyle : {
         shadowColor:'black',
-        shadowOffset:{width:0,height:0.5},
-        shadowOpacity:0.6,
+        shadowOffset:{width:0,height:0.2},
+        shadowOpacity:0.4,
     },
 });
 
