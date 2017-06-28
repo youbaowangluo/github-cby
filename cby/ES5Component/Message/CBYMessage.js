@@ -14,6 +14,7 @@ import {
     Image
 } from 'react-native';
 
+var SystemMsg = require('./CBYSystemMsg');
 var MessageDate = require('./message.json');
 var win = require('Dimensions').get('window');
 
@@ -34,7 +35,7 @@ var Message = React.createClass({
                 <View style={styles.topViewStyle}>
                     <Text style={{color:'rgba(88,81,98,1.0)',fontSize:18,}}>车保赢</Text>
                 </View>
-                <ListView style={{height:}}
+                <ListView contentContainerStyle={{height:675}}
                     dataSource={this.state.dataSource}  // 数据源
                     renderRow={this.renderRow}
                 />
@@ -45,7 +46,7 @@ var Message = React.createClass({
     // 返回具体的cell
     renderRow(rowData,sectionID,rowID,highlightRow){
         return(
-            <TouchableOpacity activeOpacity={0.5} onPress={()=>{alert('点击了'+rowID+'行')}}>
+            <TouchableOpacity activeOpacity={0.5} onPress={()=>this.pushToNext(rowID)}>
                 <View style={styles.cellViewStyle}>
                     {/*左边的图片*/}
                     <Image source={{uri: rowData.image}} style={styles.leftImageStyle}/>
@@ -62,7 +63,25 @@ var Message = React.createClass({
                 </View>
             </TouchableOpacity>
         );
-    }
+    },
+
+    pushToNext(rowID){
+        var navigator = this.props.navigator;
+        if(navigator && rowID=='0') {
+            navigator.push({
+                name: '车保赢',
+                component: SystemMsg,
+                passProps:{
+                    tabBar: {
+                        hide: () => this.props.tabBar.hide(),
+                        show: () => this.props.tabBar.show()
+                    }
+                }
+            })
+        } else {
+            alert('点击了'+rowID+'行');
+        }
+    },
 });
 
 const styles = StyleSheet.create({
